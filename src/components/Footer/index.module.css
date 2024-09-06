@@ -1,12 +1,11 @@
 .footer {
-    background-color: rgba(93, 67, 158, 0.74);
-    color: white;
-  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  
-    font-size: 16px;
-    padding: 6px;
-  }
-  
+  background-color: rgba(93, 67, 158, 0.74);
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 16px;
+  padding: 6px;
+}

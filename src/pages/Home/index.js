@@ -8,7 +8,7 @@ import style from "./index.module.css";
 import { BsStars } from "react-icons/bs";
 import { HiLightningBolt } from "react-icons/hi";
 
-import illustration from "../../assets/home_illustration.png";
+import illustration from "../../assets/home_illustration.jpg";
 
 const Index = () => {
   return (
@@ -17,7 +17,8 @@ const Index = () => {
 
       <div className={style.home__content}>
         <div className={style.first__section}>
-          <h1>Create stories, games, and animations with Blockly</h1>
+          <h1>MyTableTop</h1>
+          <h2>Créez des histoires, des jeux et des animations avec Blockly</h2>
           <div className={style.button__content}>
             <button
               type="button"
@@ -25,7 +26,7 @@ const Index = () => {
             >
               <div className={style.btn__style}>
                 <BsStars />
-                Start creating
+                Commencer à créer
               </div>
             </button>
 
@@ -35,7 +36,7 @@ const Index = () => {
             >
               <div className={style.btn__style}>
                 <HiLightningBolt />
-                Other btn
+                Autre btn
               </div>
             </button>
           </div>

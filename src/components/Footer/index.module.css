@@ -1,6 +1,6 @@
 .footer {
-  background-color: rgba(93, 67, 158, 0.74);
-  color: white;
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
 
   display: flex;
   justify-content: center;

@@ -1,10 +1,7 @@
-// src/Button.js
-import React from 'react';
+import React from "react";
 
 const index = ({ text }) => {
-  return (
-    <p>{text}</p>
-  );
+  return <p>{text}</p>;
 };
 
 export default index;

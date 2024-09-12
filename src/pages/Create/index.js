@@ -5,6 +5,7 @@ import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import Workspace from "./../../components/Workspace";
 import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
+import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
 
 const Index = () => {
   const blocklyDiv = useRef(null);
@@ -79,11 +80,7 @@ const Index = () => {
       <Header />
       <div ref={blocklyDiv} style={{ height: "480px", width: "100%" }}></div>
       <button onClick={generateCode}>Generate Code</button>
-      <div>
-        {workspaceContent && workspaceContent.length > 0
-          ? workspaceContent
-          : null}
-      </div>
+      <div>{workspaceContent}</div>
       <button onClick={SaveWorkspace}>Save</button>
       <button onClick={LoadWorkspace}>Load</button>
 

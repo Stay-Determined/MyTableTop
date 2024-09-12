@@ -4,12 +4,16 @@
   align-items: center;
 
   padding: 4% 12% 4% 12%;
+  height: 75vh;
 }
-
 .home__content h1 {
-  color: rgba(93, 67, 158, 0.74);
+  color: var(--blackColor);
+  font-size: 42px;
+}
+.home__content h2 {
+  color: var(--primaryColor);
   font-size: 36px;
-  width: 70%;
+  width: 85%;
 }
 
 .home__content img {
@@ -20,21 +24,21 @@
   font-size: 16px;
   margin-top: 20px;
   height: 45px;
-  width: 22%;
+  width: 30%;
 }
 
 .btn__primary {
-  background-color: rgba(93, 67, 158, 0.74);
-  color: white;
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
 
   border-radius: 5px;
   border: none;
 }
 
 .btn__secondary {
-  border: 2px solid rgba(93, 67, 158, 0.74);
-  background-color: white;
-  color: rgba(93, 67, 158, 0.74);
+  border: 2px solid var(--primaryColor);
+  background-color: var(--whiteColor);
+  color: var(--primaryColor);
 
   border-radius: 5px;
 
@@ -42,21 +46,20 @@
 }
 
 .btn__primary:hover {
-  border: 2px solid rgba(93, 67, 158, 0.74);
-  background-color: white;
-  color: rgba(93, 67, 158, 0.74);
+  border: 2px solid var(--primaryColor);
+  background-color: var(--whiteColor);
+  color: var(--primaryColor);
 
   border-radius: 5px;
 
   margin-top: 20px;
   font-size: 16px;
   height: 45px;
-  width: 22%;
 }
 
 .btn__secondary:hover {
-  background-color: rgba(93, 67, 158, 0.74);
-  color: white;
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
 
   border-radius: 5px;
   border: none;
@@ -64,7 +67,6 @@
   margin-top: 20px;
   font-size: 16px;
   height: 45px;
-  width: 22%;
 }
 
 .btn__style {

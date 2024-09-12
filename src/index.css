@@ -3,7 +3,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Roboto", sans-serif;
-  background-color: #fefdfd;
+  background-color: var(--backgroundColor);
   line-height: 1.2;
 }
 

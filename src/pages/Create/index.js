@@ -1,19 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import * as Blockly from 'blockly';
-import 'blockly/blocks';
+import React, { useEffect, useRef, useState } from "react";
+import * as Blockly from "blockly";
+import "blockly/blocks";
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 import Workspace from "./../../components/Workspace";
-import { blocklyReactParser } from '../../interpreter/blocklyReactParser/blocklyReactParser';
-import { reactBlocksGenerator } from '../../interpreter/blocks/reactBlocks';
+import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
+import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
 
 const Index = () => {
   const blocklyDiv = useRef(null);
   const workspaceRef = useRef(null);
   const [workspaceContent, setWorkspaceContent] = useState(Workspace);
 
-
-  const [savedWorkspace, setSavedWorkspace] = useState(null); 
+  const [savedWorkspace, setSavedWorkspace] = useState(null);
   useEffect(() => {
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
       toolbox: `
@@ -44,44 +43,46 @@ const Index = () => {
     // vas faloir que j'y touche c'est pas encore ultra opti mais le coeur y est
     // const newChildren = React.cloneElement(workspaceContent.props.children,...blocksContent)
     // console.log(newChildren);
-    setWorkspaceContent(blocklyReactParser(Blockly.serialization.workspaces.save(workspaceRef.current),workspaceContent));
+    setWorkspaceContent(
+      blocklyReactParser(
+        Blockly.serialization.workspaces.save(workspaceRef.current),
+        workspaceContent
+      )
+    );
 
     console.log(workspaceContent);
-
   };
 
   const SaveWorkspace = () => {
     if (workspaceRef.current) {
-      const workspaceJSON = Blockly.serialization.workspaces.save(workspaceRef.current); // Sauvegarde en JSON
-      setSavedWorkspace(workspaceJSON); // Sauvegarde l'état JSON dans le state
+      const workspaceJSON = Blockly.serialization.workspaces.save(
+        workspaceRef.current
+      );
+      setSavedWorkspace(workspaceJSON);
       console.log("Espace de travail exporté :", workspaceJSON);
     }
   };
 
   const LoadWorkspace = () => {
     if (workspaceRef.current && savedWorkspace) {
-      Blockly.serialization.workspaces.load(savedWorkspace, workspaceRef.current); // Recharge le workspace depuis le JSON
+      Blockly.serialization.workspaces.load(
+        savedWorkspace,
+        workspaceRef.current
+      );
       console.log("Espace de travail importé");
     } else {
       alert("Aucune sauvegarde disponible pour l'import.");
     }
   };
 
-
-    
   return (
     <div>
-    <Header />
-      <div
-        ref={blocklyDiv}
-        style={{ height: '480px', width: '100%' }}
-      >
-      </div>
+      <Header />
+      <div ref={blocklyDiv} style={{ height: "480px", width: "100%" }}></div>
       <button onClick={generateCode}>Generate Code</button>
-      {workspaceContent}
+      <div>{workspaceContent}</div>
       <button onClick={SaveWorkspace}>Save</button>
       <button onClick={LoadWorkspace}>Load</button>
-
 
       <Footer />
     </div>

@@ -1,0 +1,29 @@
+.create__page {
+}
+
+.btn {
+  font-size: 16px;
+  margin-top: 20px;
+  height: 45px;
+  width: 14%;
+}
+
+.btn__primary {
+  background-color: var(--primaryColor);
+  color: var(--whiteColor);
+
+  border-radius: 5px;
+  border: none;
+}
+
+.btn__primary:hover {
+  border: 2px solid var(--primaryColor);
+  background-color: var(--whiteColor);
+  color: var(--primaryColor);
+
+  border-radius: 5px;
+
+  margin-top: 20px;
+  font-size: 16px;
+  height: 45px;
+}

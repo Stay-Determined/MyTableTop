@@ -14,7 +14,6 @@ const Index = () => {
   return (
     <div className={style.home__page}>
       <Header />
-
       <div className={style.home__content}>
         <div className={style.first__section}>
           <h1>MyTableTop</h1>
@@ -29,7 +28,6 @@ const Index = () => {
                 Commencer à créer
               </div>
             </button>
-
             <button
               type="button"
               className={`${style.btn} ${style.btn__secondary}`}

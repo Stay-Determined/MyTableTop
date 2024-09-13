@@ -10,13 +10,16 @@ const Header = () => {
       <div className={style.header__content}>
         <ul>
           <Link to="/">
+            <li>MyTableTop</li>
+          </Link>
+          <Link to="/">
             <li>Acceuil</li>
           </Link>
           <Link to="/projects/editor">
             <li>Créer</li>
           </Link>
-          <Link to="/">
-            <li>Jouer</li>
+          <Link to="/about">
+            <li>A propos</li>
           </Link>
         </ul>
       </div>

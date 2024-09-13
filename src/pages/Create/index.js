@@ -6,7 +6,7 @@ import Footer from "./../../components/Footer";
 import Workspace from "./../../components/Workspace";
 import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
 import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
-
+import style from "./index.module.css"
 const Index = () => {
   const blocklyDiv = useRef(null);
   const workspaceRef = useRef(null);
@@ -27,8 +27,15 @@ const Index = () => {
     // setWorkspaceContent(<Button/>)
     // Initialize custom block generators
 
+    function refreshWorkspace (typeModif) {
+      if ( typeModif.type === Blockly.Events.BLOCK_CREATE || typeModif.type === Blockly.Events.BLOCK_DELETE || typeModif.type === Blockly.Events.BLOCK_CHANGE) 
+      {generateCode();}
+    };
+    workspaceRef.current.addChangeListener(refreshWorkspace);
+
     return () => {
       if (workspaceRef.current) {
+        workspaceRef.current.removeChangeListener(refreshWorkspace);
         workspaceRef.current.dispose();
       }
     };
@@ -71,7 +78,7 @@ const Index = () => {
       );
       console.log("Espace de travail importé");
     } else {
-      alert("Aucune sauvegarde disponible pour l'import.");
+      console.log("Aucune sauvegarde à importé n'a été trouvé");
     }
   };
 
@@ -81,9 +88,10 @@ const Index = () => {
       <div ref={blocklyDiv} style={{ height: "480px", width: "100%" }}></div>
       <button onClick={generateCode}>Generate Code</button>
       <div>{workspaceContent}</div>
-      <button onClick={SaveWorkspace}>Save</button>
-      <button onClick={LoadWorkspace}>Load</button>
-
+      <div className={style.container}>
+        <button  className={`${style.btn} ${style.btn__primary}`} onClick={SaveWorkspace}>Save</button>
+        <button  className={`${style.btn} ${style.btn__secondary}`} onClick={LoadWorkspace}>Load</button>
+      </div>
       <Footer />
     </div>
   );

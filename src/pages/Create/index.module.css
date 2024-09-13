@@ -1,0 +1,24 @@
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+  }
+
+.btn__primary {
+    background-color: var(--primaryColor);
+    color: var(--whiteColor);
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .btn__secondary {
+    border: 2px solid var(--primaryColor);
+    background-color: var(--whiteColor);
+    color: var(--primaryColor);
+  
+    border-radius: 5px;
+  
+    margin-left: 2%;
+  }
+

@@ -17,7 +17,18 @@ const Index = () => {
       <div className={style.home__content}>
         <div className={style.first__section}>
           <h1>MyTableTop</h1>
-          <h2>Créez des histoires, des jeux et des animations avec Blockly</h2>
+          <h2>Créez des jeux de société sans coder !</h2>
+          <p>
+            MyTableTop vous permet de créer des jeux de société, des histoires
+            interactives et des animations facilement, sans coder.
+          </p>
+          <p>
+            Grâce à la bibliothèque Blockly de no-code, vous pouvez simplement
+            assembler des blocs pour donner vie à vos idées. Que vous soyez
+            novice ou créateur confirmé, MyTableTop vous donne les outils pour
+            imaginer, développer et partager vos propres jeux interactifs en
+            quelques clics.
+          </p>
           <div className={style.button__content}>
             <button
               type="button"
@@ -25,7 +36,7 @@ const Index = () => {
             >
               <div className={style.btn__style}>
                 <BsStars />
-                Commencer à créer
+                Créer
               </div>
             </button>
             <button
@@ -33,8 +44,7 @@ const Index = () => {
               className={`${style.btn} ${style.btn__secondary}`}
             >
               <div className={style.btn__style}>
-                <HiLightningBolt />
-                Autre btn
+                <HiLightningBolt />A propos
               </div>
             </button>
           </div>

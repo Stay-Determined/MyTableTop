@@ -41,7 +41,6 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
     });
   }
   console.log("content end", content);
-  console.log("prout", actualWorkspace);
   const newChildren = React.cloneElement(
     actualWorkspace.props.children,
     ...content

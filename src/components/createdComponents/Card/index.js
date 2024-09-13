@@ -1,9 +1,9 @@
 import React from "react";
 
-import piques from "../../../assets/Cartes/pique";
-import trefles from "../../../assets/Cartes/trefle";
-import carreaux from "../../../assets/Cartes/carreau";
-import coeurs from "../../../assets/Cartes/coeur";
+import spade from "../../../assets/Cards/spade";
+import clover from "../../../assets/Cards/clover";
+import diamond from "../../../assets/Cards/diamond";
+import heart from "../../../assets/Cards/heart";
 
 const index = ({ textNombre, textFamille }) => {
   var image = null;
@@ -11,19 +11,19 @@ const index = ({ textNombre, textFamille }) => {
 
   switch (textFamille) {
     case "PIQUE":
-      famille = piques;
+      famille = spade;
       break;
 
     case "TREFLE":
-      famille = trefles;
+      famille = clover;
       break;
 
     case "COEUR":
-      famille = coeurs;
+      famille = heart;
       break;
 
     case "CARREAU":
-      famille = carreaux;
+      famille = diamond;
       break;
 
     default:

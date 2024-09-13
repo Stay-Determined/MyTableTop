@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as Blockly from "blockly";
 import "blockly/blocks";
-import Header from "./../../components/Header";
+
 import Footer from "./../../components/Footer";
+import Header from "./../../components/Header";
 import Workspace from "./../../components/Workspace";
+
 import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
 import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
 import style from "./index.module.css"
@@ -83,10 +85,15 @@ const Index = () => {
   };
 
   return (
-    <div>
+    <div className={style.create__page}>
       <Header />
       <div ref={blocklyDiv} style={{ height: "480px", width: "100%" }}></div>
-      <button onClick={generateCode}>Generate Code</button>
+      <button
+        onClick={generateCode}
+        className={`${style.btn} ${style.btn__primary}`}
+      >
+        Generate Code
+      </button>
       <div>{workspaceContent}</div>
       <div className={style.container}>
         <button  className={`${style.btn} ${style.btn__primary}`} onClick={SaveWorkspace}>Save</button>

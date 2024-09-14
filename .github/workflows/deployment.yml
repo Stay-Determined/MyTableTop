@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -16,28 +15,35 @@ jobs:
         node-version: [22.8]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm install
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
-    - name: Update Browserslist DB
-      run: npx update-browserslist-db@latest
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install missing Babel plugin
-      run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
+      - name: Update Browserslist DB
+        run: npx update-browserslist-db@latest
 
-    - name: Build React App
-      run: CI=false npm run build
+      - name: Install missing Babel plugin
+        run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
 
-    - name: Deploy to AWS Amplify
-      run: amplify push --yes
-      env:
-        AWS_SECRET_ID: ${{ secrets.AWS_SECRET_ID }}
-        AMPLIFY_SECRET: ${{ secrets.AMPLIFY.SECRET }}
+      - name: Build React App
+        run: CI=false npm run build
+
+      - name: Install Amplify CLI
+        run: npm install -g @aws-amplify/cli
+
+      - name: Verify Amplify CLI Installation
+        run: amplify --version
+
+      - name: Deploy to AWS Amplify
+        run: amplify push --yes
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}

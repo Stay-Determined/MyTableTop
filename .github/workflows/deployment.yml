@@ -35,6 +35,6 @@ jobs:
     - name: Deploy to AWS Amplify
       uses: aws-amplify/amplify-cli-action@v1.0.0
       with:
-        app-id: ${{ secrets.ddrijlomdvmy1 }}
+        app-id: ${{ secrets.AWS_SECRET_ID }}
         branch-name: main 
         amplify-token: ${{ secrets.AMPLIFY.SECRET }}

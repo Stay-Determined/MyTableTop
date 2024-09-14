@@ -17,6 +17,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
@@ -32,9 +33,14 @@ jobs:
     - name: Build React App
       run: npm run build
 
+    - name: Install Amplify CLI
+      run: npm install -g @aws-amplify/cli
+
+    - name: Configure Amplify
+      run: amplify configure
+
     - name: Deploy to AWS Amplify
-      uses: aws-amplify/amplify-cli-action@v1.0.0
-      with:
-        app-id: ${{ secrets.AWS_SECRET_ID }}
-        branch-name: main 
-        amplify-token: ${{ secrets.AMPLIFY.SECRET }}
+      run: amplify push --yes
+      env:
+        AWS_SECRET_ID: ${{ secrets.AWS_SECRET_ID }}
+        AMPLIFY_SECRET: ${{ secrets.AMPLIFY.SECRET }}

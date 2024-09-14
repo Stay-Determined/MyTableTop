@@ -42,7 +42,7 @@ jobs:
         run: amplify --version
 
       - name: Pull Amplify Project
-        run: amplify pull --appId ${{ secrets.AWS_SECRET_ID }}
+        run: amplify pull --appId ${{ secrets.AWS_SECRET_ID }} --envName ${{ secrets.prod }}
 
       - name: Deploy to AWS Amplify
         run: amplify push --yes

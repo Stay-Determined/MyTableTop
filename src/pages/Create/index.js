@@ -31,9 +31,9 @@ const Index = () => {
 
     function refreshWorkspace(typeModif) {
       if (
-        typeModif.type === Blockly.Events.BLOCK_CREATE ||
-        typeModif.type === Blockly.Events.BLOCK_DELETE ||
-        typeModif.type === Blockly.Events.BLOCK_CHANGE
+        typeModif?.type === Blockly.Events.BLOCK_MOVE ||
+        typeModif?.type === Blockly.Events.BLOCK_DELETE ||
+        typeModif?.type === Blockly.Events.BLOCK_CHANGE
       ) {
         generateCode();
       }

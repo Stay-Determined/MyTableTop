@@ -50,7 +50,11 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
 }
 
 function blockParse(block, parent) {
-  console.log("DEBUT DE PARSE DU BLOC", block.type);
+  // console.log("DEBUT DE PARSE DU BLOC", block.type);
+  if (!block || !parent){
+    return [];
+  }
+
   let content = [];
   if (block.type === "react_button") {
     console.log("button");

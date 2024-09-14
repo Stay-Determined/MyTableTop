@@ -37,4 +37,4 @@ jobs:
       with:
         app-id: ${{ secrets.ddrijlomdvmy1 }}
         branch-name: main 
-        amplify-token: ${{ secrets.Bc/bKSMvceP7IZ4xcXTMFZ7ujSHvdJZjhf6Nb5Ck }}
+        amplify-token: ${{ secrets.AMPLIFY.SECRET }}

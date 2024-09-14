@@ -33,7 +33,7 @@ jobs:
       run: npm run build
 
     - name: Deploy to AWS Amplify
-      uses: aws-actions/aws-amplify-action@v2
+      uses: aws-amplify/amplify-cli-action@v1.0.0
       with:
         app-id: ${{ secrets.ddrijlomdvmy1 }}
         branch-name: main 

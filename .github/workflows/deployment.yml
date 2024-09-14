@@ -27,6 +27,12 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Update Browserslist DB
+      run: npx update-browserslist-db@latest
+
+    - name: Install missing Babel plugin
+      run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
     - name: Build React App
       run: npm run build
 

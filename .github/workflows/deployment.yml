@@ -41,6 +41,9 @@ jobs:
       - name: Verify Amplify CLI Installation
         run: amplify --version
 
+      - name: Pull Amplify Project
+        run: amplify pull --appId ${{ secrets.AWS_SECRET_ID }}
+
       - name: Deploy to AWS Amplify
         run: amplify push --yes
         env:

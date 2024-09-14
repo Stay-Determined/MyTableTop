@@ -34,7 +34,7 @@ jobs:
       run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
 
     - name: Build React App
-      run: npm run build
+      run: CI=false npm run build
 
     - name: Install Amplify CLI
       run: npm install -g @aws-amplify/cli

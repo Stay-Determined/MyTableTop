@@ -3,6 +3,7 @@ import Workspace from "../../components/Workspace";
 import Button from "../../components/createdComponents/Button";
 import Text from "../../components/createdComponents/Text";
 import Card from "../../components/createdComponents/Card";
+import Deck from "../../components/createdComponents/Deck"
 
 import Initializer from "./initializer";
 
@@ -70,6 +71,12 @@ function blockParse(block, parent) {
         textNombre={block.fields["CARD_TEXT"]}
         textFamille={block.fields["FAMILLY_TEXT"]}
       />,
+    ];
+  }
+
+  if (block.type === "react_deck") {
+    content = [
+      <Deck text={block.fields["DECK_TEXT"]}/>,
     ];
   }
   console.log(parent);

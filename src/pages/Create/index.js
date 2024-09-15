@@ -20,12 +20,12 @@ const Index = () => {
           <block type="react_button"></block> <!-- Your custom block -->
           <block type="react_text"></block> <!-- Your custom block -->
           <block type="react_cardlist"></block> <!-- Your custom block -->
+          <block type="react_deck"></block> <!-- Your custom block -->
         </xml>
       `,
     });
     workspaceRef.current = workspaceBlock;
-    // setWorkspaceContent(<Button/>)
-    // Initialize custom block generators
+
 
     function refreshWorkspace (typeModif) {
       if ( typeModif.type === Blockly.Events.BLOCK_CREATE || typeModif.type === Blockly.Events.BLOCK_DELETE || typeModif.type === Blockly.Events.BLOCK_CHANGE) 
@@ -42,14 +42,6 @@ const Index = () => {
   }, []);
 
   const generateCode = () => {
-    // const blocksContent = blocklyReactParser(Blockly.serialization.workspaces.save(workspaceRef.current));
-    // console.log(workspaceContent);
-    // console.log(blocksContent);
-
-    // la sorcellerie est ici :
-    // vas faloir que j'y touche c'est pas encore ultra opti mais le coeur y est
-    // const newChildren = React.cloneElement(workspaceContent.props.children,...blocksContent)
-    // console.log(newChildren);
     setWorkspaceContent(
       blocklyReactParser(
         Blockly.serialization.workspaces.save(workspaceRef.current),

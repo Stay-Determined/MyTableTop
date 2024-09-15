@@ -17,6 +17,11 @@
   width: 50%;
 }
 
+/* .blocklyMainBackground {
+  stroke-width: 0 !important;
+  stroke: none !important;
+} */
+
 .create__design {
   box-shadow: 0 4px 2px -2px var(--shadowBorder);
   border: 1.5px solid var(--shadowBorder);

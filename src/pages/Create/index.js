@@ -29,6 +29,7 @@ const Index = () => {
           <block type="react_deck"></block> <!-- Your custom block -->
         </xml>
       `,
+      trashcan: true,
     });
     workspaceRef.current = workspaceBlock;
 

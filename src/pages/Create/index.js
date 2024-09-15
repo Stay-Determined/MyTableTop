@@ -17,6 +17,8 @@ const Index = () => {
   const [workspaceContent, setWorkspaceContent] = useState(Workspace);
 
   const [savedWorkspace, setSavedWorkspace] = useState(null);
+  const [saveMessage, setSaveMessage] = useState("");
+
   useEffect(() => {
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
       toolbox: `
@@ -64,7 +66,12 @@ const Index = () => {
         workspaceRef.current
       );
       setSavedWorkspace(workspaceJSON);
-      console.log("Espace de travail exporté :", workspaceJSON);
+
+      setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
+
+      setTimeout(() => {
+        setSaveMessage("");
+      }, 3000);
     }
   };
 
@@ -89,19 +96,24 @@ const Index = () => {
           <div className={style.create__design}>{workspaceContent}</div>
         </div>
 
-        <div className={style.container}>
+        <div className={style.btn__container}>
           <button
             className={`${style.btn} ${style.btn__primary}`}
             onClick={SaveWorkspace}
           >
             Save
           </button>
+
           <button
             className={`${style.btn} ${style.btn__secondary}`}
             onClick={LoadWorkspace}
           >
             Load
           </button>
+
+          {saveMessage && (
+            <div className={style.btn__message}>{saveMessage}</div>
+          )}
         </div>
       </div>
       <Footer />

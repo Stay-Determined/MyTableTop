@@ -5,7 +5,7 @@ import style from "./index.module.css";
 const Index = () => {
   return (
     <div className={style.workspace__page}>
-      <h3>Display</h3>
+      <h3>Affichage</h3>
       <div>
         <div></div>
       </div>

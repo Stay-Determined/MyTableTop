@@ -25,18 +25,22 @@
   margin-left: 8px;
   height: 78vh;
   width: 50%;
+
+  overflow-y: scroll;
+  scrollbar-color: var(--shadowBorder);
+  scrollbar-width: thin;
 }
 
-.container {
+.btn__container {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex-flow: row wrap;
+  margin: 20px;
 }
 
 .btn {
   font-size: 16px;
-  margin-top: 20px;
   height: 35px;
   width: 6%;
 }
@@ -56,4 +60,8 @@
   border-radius: 5px;
 
   margin-left: 2%;
+}
+
+.btn__message {
+  margin-left: 20px;
 }

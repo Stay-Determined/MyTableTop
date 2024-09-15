@@ -1,6 +1,5 @@
 import * as Blockly from 'blockly';
 
-// Define a custom block for a React Button component
 Blockly.defineBlocksWithJsonArray([
   {
     "type": "react_button",
@@ -34,24 +33,7 @@ Blockly.defineBlocksWithJsonArray([
     "tooltip": "Creates a React button component",
     "helpUrl": ""
   },
-  // {
-  //   "type": "react_cardlist",
-  //   "message0": "<img> %1",
-  //   "args0": [
-  //     {
-  //       "type": "field_dropdown",
-  //       "name": "CARD_TEXT",
-  //       "text": "AS1",
-  //       "options": [
-  //       ["none", "NONE"],
-  //       [{"src": pique1,"width": 50, "height": 25, "alt": "1"}, "AS DE PIQUE"],
-  //       [{"src": pique2,"width": 50, "height": 25, "alt": "2"}, "DEUX DE PIQUE"],
-  //       ]
-  //     }
-  //   ],
-  //   "colour": 15,
-  // },
-  
+
   
   {
     "type": "react_cardlist",
@@ -93,22 +75,18 @@ Blockly.defineBlocksWithJsonArray([
     "previousStatement": null,
     "nextStatement": null,
   },
-  // {
-  //   "type": "react_cardlist",
-  //   "message0": "%1",
-  //   "args0": [
-  //     {
-  //       "type": "field_input",
-  //       "name": "TEST_TEXT",
-  //       "text": "Carte"
-  //     }
-  //   ],
-  //   "previousStatement": null,
-  //   "nextStatement": null,
-  //   "colour": 200,
-  //   "tooltip": "Creates a React button component",
-  //   "helpUrl": ""
-  // },
-
-
+  {
+    "type": "react_deck",
+    "message0": " %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "DECK_TEXT",
+        "text": "Deck de cartes",
+      },
+    ],
+    "colour": 230,
+    "previousStatement": null,
+    "nextStatement": null,
+  },
 ]);

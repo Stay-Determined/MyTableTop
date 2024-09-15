@@ -1,7 +1,10 @@
 import React from "react";
+
+import style from "./index.module.css";
+
 const Index = () => {
   return (
-    <div>
+    <div className={style.workspace__page}>
       <h3>Display</h3>
       <div>
         <div></div>

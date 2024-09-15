@@ -5,7 +5,7 @@ import Footer from "./../../components/Footer";
 
 import style from "./index.module.css";
 
-import illustration from "../../assets/about_illustration.jpg";
+import illustration from "../../assets/Illustrations/about_illustration.jpg";
 
 const Index = () => {
   return (

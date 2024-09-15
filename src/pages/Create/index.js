@@ -82,9 +82,6 @@ const Index = () => {
         savedWorkspace,
         workspaceRef.current
       );
-      console.log("Espace de travail importé");
-    } else {
-      console.log("Aucune sauvegarde à importé n'a été trouvé");
     }
   };
 

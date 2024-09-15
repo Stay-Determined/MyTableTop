@@ -1,0 +1,8 @@
+.workspace__page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  padding: 1.5%;
+}

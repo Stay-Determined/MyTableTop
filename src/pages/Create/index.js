@@ -8,13 +8,17 @@ import Workspace from "./../../components/Workspace";
 
 import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
 import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
-import style from "./index.module.css"
+
+import style from "./index.module.css";
+
 const Index = () => {
   const blocklyDiv = useRef(null);
   const workspaceRef = useRef(null);
   const [workspaceContent, setWorkspaceContent] = useState(Workspace);
 
   const [savedWorkspace, setSavedWorkspace] = useState(null);
+  const [saveMessage, setSaveMessage] = useState("");
+
   useEffect(() => {
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
       toolbox: `
@@ -25,14 +29,19 @@ const Index = () => {
           <block type="react_deck"></block> <!-- Your custom block -->
         </xml>
       `,
+      trashcan: true,
     });
     workspaceRef.current = workspaceBlock;
 
-
-    function refreshWorkspace (typeModif) {
-      if ( typeModif.type === Blockly.Events.BLOCK_CREATE || typeModif.type === Blockly.Events.BLOCK_DELETE || typeModif.type === Blockly.Events.BLOCK_CHANGE) 
-      {generateCode();}
-    };
+    function refreshWorkspace(typeModif) {
+      if (
+        typeModif.type === Blockly.Events.BLOCK_CREATE ||
+        typeModif.type === Blockly.Events.BLOCK_DELETE ||
+        typeModif.type === Blockly.Events.BLOCK_CHANGE
+      ) {
+        generateCode();
+      }
+    }
     workspaceRef.current.addChangeListener(refreshWorkspace);
 
     return () => {
@@ -50,8 +59,6 @@ const Index = () => {
         workspaceContent
       )
     );
-
-    console.log(workspaceContent);
   };
 
   const SaveWorkspace = () => {
@@ -60,7 +67,12 @@ const Index = () => {
         workspaceRef.current
       );
       setSavedWorkspace(workspaceJSON);
-      console.log("Espace de travail exporté :", workspaceJSON);
+
+      setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
+
+      setTimeout(() => {
+        setSaveMessage("");
+      }, 3000);
     }
   };
 
@@ -79,17 +91,31 @@ const Index = () => {
   return (
     <div className={style.create__page}>
       <Header />
-      <div ref={blocklyDiv} style={{ height: "480px", width: "100%" }}></div>
-      <button
-        onClick={generateCode}
-        className={`${style.btn} ${style.btn__primary}`}
-      >
-        Generate Code
-      </button>
-      <div>{workspaceContent}</div>
-      <div className={style.container}>
-        <button  className={`${style.btn} ${style.btn__primary}`} onClick={SaveWorkspace}>Save</button>
-        <button  className={`${style.btn} ${style.btn__secondary}`} onClick={LoadWorkspace}>Load</button>
+      <div className={style.page__content}>
+        <div className={style.create__content}>
+          <div ref={blocklyDiv} className={style.blockly__bloc}></div>
+          <div className={style.create__design}>{workspaceContent}</div>
+        </div>
+
+        <div className={style.btn__container}>
+          <button
+            className={`${style.btn} ${style.btn__primary}`}
+            onClick={SaveWorkspace}
+          >
+            Save
+          </button>
+
+          <button
+            className={`${style.btn} ${style.btn__secondary}`}
+            onClick={LoadWorkspace}
+          >
+            Load
+          </button>
+
+          {saveMessage && (
+            <div className={style.btn__message}>{saveMessage}</div>
+          )}
+        </div>
       </div>
       <Footer />
     </div>

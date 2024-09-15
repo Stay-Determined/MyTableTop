@@ -34,18 +34,3 @@ jobs:
 
       - name: Build React App
         run: CI=false npm run build
-
-      - name: Install Amplify CLI
-        run: npm install -g @aws-amplify/cli
-        
-      - name: Verify Amplify CLI Installation
-        run: amplify --version
-        
-      - name: Pull Amplify Project
-        run: amplify pull --appId ${{ secrets.AWS_SECRET_ID }} --envName ${{ secrets.dev }}
-        
-      - name: Deploy to AWS Amplify
-        run: amplify push --yes
-        env:
-          AWS_SECRET_ID: ${{ secrets.AWS_SECRET_ID }}
-          AMPLIFY.SECRET: ${{ secrets.AMPLIFY.SECRET }}

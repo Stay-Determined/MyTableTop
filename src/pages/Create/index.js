@@ -23,6 +23,7 @@ const Index = () => {
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
       toolbox: `
         <xml>
+          <block type="return_card"></block> <!-- Your custom block -->
           <block type="react_button"></block> <!-- Your custom block -->
           <block type="react_text"></block> <!-- Your custom block -->
           <block type="react_cardlist"></block> <!-- Your custom block -->
@@ -37,7 +38,8 @@ const Index = () => {
       if (
         typeModif.type === Blockly.Events.BLOCK_CREATE ||
         typeModif.type === Blockly.Events.BLOCK_DELETE ||
-        typeModif.type === Blockly.Events.BLOCK_CHANGE
+        typeModif.type === Blockly.Events.BLOCK_CHANGE ||
+        typeModif.type === Blockly.Events.BLOCK_MOVE
       ) {
         generateCode();
       }

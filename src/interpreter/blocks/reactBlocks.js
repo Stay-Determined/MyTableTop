@@ -2,6 +2,15 @@ import * as Blockly from "blockly";
 
 Blockly.defineBlocksWithJsonArray([
   {
+    type: "return_card",
+    message0: "Turn a card",
+    previousStatement: null,
+    nextStatement: null,
+    colour: "#FFAB19",
+    tooltip: "Turn a card",
+    helpUrl: "",
+  },
+  {
     type: "react_button",
     message0: "<Button> %1",
     args0: [
@@ -36,12 +45,11 @@ Blockly.defineBlocksWithJsonArray([
 
   {
     type: "react_cardlist",
-    message0: " %1 de %2",
+    message0: "%1 de %2",
     args0: [
       {
         type: "field_dropdown",
         name: "CARD_TEXT",
-        text: "Numero",
         options: [
           ["As", "AS"],
           ["Deux", "DEUX"],
@@ -61,16 +69,22 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "FAMILLY_TEXT",
-        text: "Type",
         options: [
           ["Pique", "PIQUE"],
           ["Coeur", "COEUR"],
           ["Carreau", "CARREAU"],
-          ["Trefle", "TREFLE"],
+          ["Trèfle", "TREFLE"],
         ],
       },
     ],
-    colour: "cdb4db",
+    message1: " %1 ",
+    args1: [
+      {
+        type: "input_statement",
+        name: "CARD_ACTION",
+      },
+    ],
+    colour: "#cdb4db",
     previousStatement: null,
     nextStatement: null,
   },

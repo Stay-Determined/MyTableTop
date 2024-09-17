@@ -1,0 +1,48 @@
+.error__page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 20%;
+    min-height: 100vh;
+}
+  
+.error__page h1 {
+    font-size: 36px;
+    color: var(--blackColor);
+}
+  
+.error__page p {
+    color: var(--blackColor);
+    line-height: 1.625;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    font-size: 16px;
+}
+  
+.error__page ul {
+    list-style: none;
+    padding: 0;
+}
+  
+.error__page ul li {
+    margin: 5px 0;
+}
+  
+.error__page a {
+    text-decoration: none;
+    color: var(--blackColor);
+    font-weight: bold;
+}
+  
+.error__page a:hover {
+    text-decoration: underline;
+}
+
+.error__page img {
+    height: 250px;
+    width: auto;
+}

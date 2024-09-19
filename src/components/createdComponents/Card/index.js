@@ -5,9 +5,7 @@ import clover from "../../../assets/Cards/clover";
 import diamond from "../../../assets/Cards/diamond";
 import heart from "../../../assets/Cards/heart";
 
-import cardBack from "../../../assets/Deck/back_deck.png";
-
-const index = ({ textNombre, textFamille, isFlipped }) => {
+const index = ({ textNombre, textFamille }) => {
   var image = null;
   var famille = null;
 
@@ -91,10 +89,7 @@ const index = ({ textNombre, textFamille, isFlipped }) => {
       break;
   }
 
-  const cardImage = isFlipped ? cardBack : image;
-
-  return <img src={cardImage} alt="card" style={{ margin: "auto" }} />;
-
+  return <img src={image} alt="card" style={{ margin: "auto" }} />;
 };
 
 export default index;

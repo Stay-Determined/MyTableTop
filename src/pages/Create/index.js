@@ -9,10 +9,12 @@ import Workspace from "./../../components/Workspace";
 import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
 import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
 import style from "./index.module.css";
+
+
 const Index = () => {
   const blocklyDiv = useRef(null);
   const workspaceRef = useRef(null);
-  const [workspaceContent, setWorkspaceContent] = useState(Workspace);
+  const [workspaceContent, setWorkspaceContent] = useState([]);
 
   const [savedWorkspace, setSavedWorkspace] = useState(null);
   useEffect(() => {
@@ -99,7 +101,8 @@ const Index = () => {
       >
         Generate Code
       </button>
-      <div>{workspaceContent}</div>
+      {/* <div>{workspaceContent}</div> */}
+      <Workspace children={workspaceContent}/>
       <div className={style.container}>
         <button
           className={`${style.btn} ${style.btn__primary}`}

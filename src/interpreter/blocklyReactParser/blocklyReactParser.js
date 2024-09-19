@@ -9,15 +9,16 @@ import Initializer from "./initializer";
 // ici y'auras tout le coeur du parser/interpreter, chaque block aura sont output précisé ici meme
 // atm y'a que button et text, mais c'est ici qu'il y auras div par exemple, image, ou autre
 export function blocklyReactParser(workspaceJson, actualWorkspace) {
-  var content = [Workspace];
+  var content = [];
   if (workspaceJson && workspaceJson.blocks && workspaceJson.blocks.blocks) {
     workspaceJson.blocks.blocks.forEach((block, index) => {
-      let parent = Initializer();
-
+      let parent = <Initializer  key={`bloc`+index}/>
+      console.log("parent.key",parent.key);
+      
       // let children = Initializer();
       // // debug(block,index)
       // console.log("parent",parent)
-      // if (block.type === "react_button"){
+      // if (block.type === "react_button"){  
       //   console.log("button");
       //   // console.log(block.fields["BUTTON_TEXT"]);
       //   children = React.cloneElement(parent.props.children,null,<Button text={block.fields["BUTTON_TEXT"]} onClick={null} />)
@@ -36,11 +37,12 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
       // console.log(blockParse(block,parent))
       content = [
         ...content,
-        React.cloneElement(parent, null, ...blockParse(block, parent)),
+        React.cloneElement(parent, {key:parent.key+`out`}, ...blockParse(block, parent)),
       ];
     });
   }
   console.log("content end", content);
+  return content;
   const newChildren = React.cloneElement(
     actualWorkspace.props.children,
     ...content
@@ -60,18 +62,19 @@ function blockParse(block, parent) {
     console.log("button");
     // console.log(block.fields["BUTTON_TEXT"]);
     // ret = React.cloneElement(parent.props,null,<Button text={block.fields["BUTTON_TEXT"]} onClick={null} />)
-    content = [<Button text={block.fields["BUTTON_TEXT"]} onClick={null} />];
+    content = [<Button text={block.fields["BUTTON_TEXT"]} onClick={null} key={parent.key+`in`}/>];
   }
   if (block.type === "react_text") {
     console.log("text");
     // ret = React.cloneElement(parent.props,null,<Text text={block.fields["TEXT_TEXT"]} />)
-    content = [<Text text={block.fields["TEXT_TEXT"]} />];
+    content = [<Text text={block.fields["TEXT_TEXT"]} key={parent.key+`in`}/>];
   }
   if (block.type === "react_cardlist") {
     content = [
       <Card
         textNombre={block.fields["CARD_TEXT"]}
         textFamille={block.fields["FAMILLY_TEXT"]}
+        key={parent.key+`in`}
       />,
     ];
   }

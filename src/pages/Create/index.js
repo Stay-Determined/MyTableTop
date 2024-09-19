@@ -16,10 +16,12 @@ const Index = () => {
   const workspaceRef = useRef(null);
   const [workspaceContent, setWorkspaceContent] = useState(Workspace);
 
-  const [savedWorkspace, setSavedWorkspace] = useState(null);
+  const [checkDataLocalStorage, setCheckDataLocalStorage] = useState(false);
+  
   const [saveMessage, setSaveMessage] = useState("");
+  const savedWorkspace = localStorage.getItem("savedWorkspace");
 
-  useEffect(() => {
+  useEffect(() => {    
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
       toolbox: `
         <xml>
@@ -32,6 +34,12 @@ const Index = () => {
       trashcan: true,
     });
     workspaceRef.current = workspaceBlock;
+    
+    if (savedWorkspace) {
+      setCheckDataLocalStorage(true); // Des données sont présentes
+    } else {
+      setCheckDataLocalStorage(false); // Aucune donnée dans le localStorage
+    }
 
     function refreshWorkspace(typeModif) {
       if (
@@ -42,14 +50,16 @@ const Index = () => {
         generateCode();
       }
     }
-    workspaceRef.current.addChangeListener(refreshWorkspace);
 
+    workspaceRef.current.addChangeListener(refreshWorkspace);
+  
     return () => {
       if (workspaceRef.current) {
         workspaceRef.current.removeChangeListener(refreshWorkspace);
         workspaceRef.current.dispose();
       }
     };
+
   }, []);
 
   const generateCode = () => {
@@ -61,14 +71,44 @@ const Index = () => {
     );
   };
 
-  const SaveWorkspace = () => {
+  /*function setCookie(cname, cvalue, exdays){
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+};*/
+
+
+  /*const SaveWorkspace = () => {
     if (workspaceRef.current) {
-      const workspaceJSON = Blockly.serialization.workspaces.save(
+      const blocklyJsonWorkspace = Blockly.serialization.workspaces.save(
         workspaceRef.current
       );
-      setSavedWorkspace(workspaceJSON);
+      const blocklyStringWorkspace = JSON.stringify(blocklyJsonWorkspace);
 
-      setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
+      try {
+        setCookie("savedWorkspace", blocklyStringWorkspace, 100);
+        setSavedWorkspace(blocklyJsonWorkspace);
+        setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
+      } catch (error) {
+        setSaveMessage("Erreur : La sauvegarde n'a pas été prise en compte, veuillez réessayer :'(");
+        console.log("Erreur : "+error);
+      }
 
       setTimeout(() => {
         setSaveMessage("");
@@ -77,13 +117,84 @@ const Index = () => {
   };
 
   const LoadWorkspace = () => {
-    if (workspaceRef.current && savedWorkspace) {
-      Blockly.serialization.workspaces.load(
-        savedWorkspace,
-        workspaceRef.current
-      );
+    if (workspaceRef.current) {
+      const blocklyStringWorkspace = getCookie("savedWorkspace");
+      const blocklyJsonWorkspace = JSON.parse(blocklyStringWorkspace);
+      try {
+        Blockly.serialization.workspaces.load(
+          blocklyJsonWorkspace,
+          workspaceRef.current
+        );
+      } catch (error) {
+        console.log("Erreur : "+error)
+      }
+    }
+  };*/
+
+
+
+  const SaveWorkspace = () => {
+    if (workspaceRef.current) {
+      const workspaceJson = Blockly.serialization.workspaces.save(workspaceRef.current);
+      const workspaceString = JSON.stringify(workspaceJson);
+
+      try {
+        localStorage.setItem('savedWorkspace', workspaceString);
+        setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
+
+      } catch (error) {
+        console.log("Erreur lors de la sauvegarde : ", error);
+        setSaveMessage("Erreur lors de la sauvegarde ='(");
+      }
+      setTimeout(() => {
+        setSaveMessage("");
+      }, 3000);
     }
   };
+
+  const LoadWorkspace = () => {
+    if (workspaceRef.current) {
+      const savedWorkspace = localStorage.getItem('savedWorkspace');
+
+      try {
+        Blockly.serialization.workspaces.load(
+          JSON.parse(savedWorkspace),
+          workspaceRef.current
+        );
+        setSaveMessage("Chargement de la sauvegarde réussi =)");
+
+      } catch (error) {
+        console.log("Erreur lors du chargement : ", error);
+        setSaveMessage("Le chargement de la sauvegarde à échoué ='(");
+      }
+      setTimeout(() => {
+        setSaveMessage("");
+      }, 3000);
+    }
+  };
+  
+  const eraseDataLocalStorage = () => {
+    var msg = "Vous êtes sur le points de supprimer votre sauvegarde. \
+      \n\nÊtes vous sûr de continuer ? \
+      \n\nCette action est irréversible O_O'";
+    // eslint-disable-next-line no-restricted-globals
+  if (confirm(msg)) {
+    //eslint-disable-line
+    try {
+      localStorage.clear()
+      setSaveMessage("Sauvegarde supprimé avec succès");
+    } catch (error) {
+      console.log("Erreur : "+error);
+      setSaveMessage("La suppression de la sauvegarde à échoué");
+    }
+   }else{
+    setSaveMessage("La suppression de la sauvegarde à été annulé");
+   }
+   setTimeout(() => {
+    setSaveMessage("");
+  }, 3000);
+  };
+  
 
   return (
     <div className={style.create__page}>
@@ -97,16 +208,20 @@ const Index = () => {
         <div className={style.btn__container}>
           <button
             className={`${style.btn} ${style.btn__primary}`}
-            onClick={SaveWorkspace}
-          >
+            onClick={SaveWorkspace}>
             Save
           </button>
 
           <button
             className={`${style.btn} ${style.btn__secondary}`}
-            onClick={LoadWorkspace}
-          >
+            onClick={LoadWorkspace}>
             Load
+          </button>
+
+          <button
+            className={`${style.btn} ${checkDataLocalStorage ? style.btn__tertiary : style.btn__disabled}`}
+            onClick={eraseDataLocalStorage}>
+            Erase
           </button>
 
           {saveMessage && (

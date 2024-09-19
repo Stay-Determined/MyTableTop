@@ -67,6 +67,23 @@
   margin-left: 2%;
 }
 
+.btn__tertiary {
+  border: 2px solid var(--secondaryColor);
+  background-color: var(--whiteColor);
+  color: var(--secondaryColor);
+  border-radius: 5px;
+  margin-left: 2%;
+}
+
+.btn__disabled{
+  border: 2px solid var(--disableColor) ;
+  background-color: var(--whiteColor);
+  color: var(--disableColor);
+  border-radius: 5px;
+  margin-left: 2%;
+  pointer-events: none;
+}
+
 .btn__message {
   margin-left: 20px;
 }

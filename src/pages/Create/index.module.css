@@ -1,8 +1,53 @@
-.container {
+.page__content {
+  padding: 1%;
+  height: 90vh;
+}
+
+.create__content {
   display: flex;
-  justify-content: center;
+}
+
+.blockly__bloc {
+  box-shadow: 0 4px 2px -2px var(--shadowBorder);
+  border: 1.5px solid var(--shadowBorder);
+  background-color: var(--whiteColor);
+  border-radius: 5px;
+  margin-right: 8px;
+  height: 78vh;
+  width: 50%;
+}
+
+/* .blocklyMainBackground {
+  stroke-width: 0 !important;
+  stroke: none !important;
+} */
+
+.create__design {
+  box-shadow: 0 4px 2px -2px var(--shadowBorder);
+  border: 1.5px solid var(--shadowBorder);
+  background-color: var(--whiteColor);
+  border-radius: 5px;
+  margin-left: 8px;
+  height: 78vh;
+  width: 50%;
+
+  overflow-y: scroll;
+  scrollbar-color: var(--shadowBorder);
+  scrollbar-width: thin;
+}
+
+.btn__container {
+  display: flex;
   align-items: center;
+  justify-content: center;
   flex-flow: row wrap;
+  margin: 20px;
+}
+
+.btn {
+  font-size: 16px;
+  height: 35px;
+  width: 6%;
 }
 
 .btn__primary {
@@ -20,4 +65,8 @@
   border-radius: 5px;
 
   margin-left: 2%;
+}
+
+.btn__message {
+  margin-left: 20px;
 }

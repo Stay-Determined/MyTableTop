@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Link } from "react-router-dom";
+
 import Header from "./../../components/Header";
 import Footer from "./../../components/Footer";
 
@@ -8,7 +10,7 @@ import style from "./index.module.css";
 import { BsStars } from "react-icons/bs";
 import { HiLightningBolt } from "react-icons/hi";
 
-import illustration from "../../assets/home_illustration.jpg";
+import illustration from "../../assets/Illustrations/home_illustration.jpg";
 
 const Index = () => {
   return (
@@ -30,23 +32,27 @@ const Index = () => {
             quelques clics.
           </p>
           <div className={style.button__content}>
-            <button
-              type="button"
-              className={`${style.btn} ${style.btn__primary}`}
-            >
-              <div className={style.btn__style}>
-                <BsStars />
-                Créer
-              </div>
-            </button>
-            <button
-              type="button"
-              className={`${style.btn} ${style.btn__secondary}`}
-            >
-              <div className={style.btn__style}>
-                <HiLightningBolt />A propos
-              </div>
-            </button>
+            <Link to="/projects/editor">
+              <button
+                type="button"
+                className={`${style.btn} ${style.btn__primary}`}
+              >
+                <div className={style.btn__style}>
+                  <BsStars />
+                  Créer
+                </div>
+              </button>
+            </Link>
+            <Link to="/about">
+              <button
+                type="button"
+                className={`${style.btn} ${style.btn__secondary}`}
+              >
+                <div className={style.btn__style}>
+                  <HiLightningBolt />A propos
+                </div>
+              </button>
+            </Link>
           </div>
         </div>
         <img src={illustration} alt="logo" />

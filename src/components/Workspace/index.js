@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MdHeight } from "react-icons/md";
 import { v4 as uuidv4 } from 'uuid';
+import style from "./index.module.css";
 
 const grid = 8;
 
@@ -188,12 +189,7 @@ const Workspace = ({ children }) => {
   };
 
   return (
-    <div style={{
-      display: "flex",
-      justifyContent: "space-around",
-      width: "100%",
-      padding: "20px"
-    }}>
+    <div className={style.workspace__page}>
       <DragDropContext onDragEnd={onDragEnd}>
         {Object.keys(state).map((droppableId) => (
           <Droppable key={droppableId} droppableId={droppableId}>

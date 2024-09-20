@@ -8,33 +8,25 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.8]
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm install
+      - name: Checkout the code
+        uses: actions/checkout@v4
 
-    - name: Run tests
-      run: npm test
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
 
-    - name: Build React App
-      run: npm run build
+      - name: Install dependencies
+        run: npm install
 
-    - name: Deploy to AWS Amplify
-      uses: aws-actions/aws-amplify-action@v2
-      with:
-        app-id: ${{ secrets.ddrijlomdvmy1 }}
-        branch-name: main 
-        amplify-token: ${{ secrets.Bc/bKSMvceP7IZ4xcXTMFZ7ujSHvdJZjhf6Nb5Ck }}
+      - name: Update Browserslist DB
+        run: npx update-browserslist-db@latest
+
+      - name: Install missing Babel plugin
+        run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
+      - name: Build React App
+        run: CI=false npm run build

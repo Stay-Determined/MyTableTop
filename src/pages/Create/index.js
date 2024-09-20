@@ -16,10 +16,8 @@ const Index = () => {
   const workspaceRef = useRef(null);
   const [workspaceContent, setWorkspaceContent] = useState(Workspace);
 
-  const [checkDataLocalStorage, setCheckDataLocalStorage] = useState(false);
-  
+  const [cssBtn, setCssBtn] = useState(localStorage.getItem("savedWorkspace") ? style.btn__tertiary : style.btn__disabled);
   const [saveMessage, setSaveMessage] = useState("");
-  const savedWorkspace = localStorage.getItem("savedWorkspace");
 
   useEffect(() => {    
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
@@ -34,12 +32,6 @@ const Index = () => {
       trashcan: true,
     });
     workspaceRef.current = workspaceBlock;
-    
-    if (savedWorkspace) {
-      setCheckDataLocalStorage(true); // Des données sont présentes
-    } else {
-      setCheckDataLocalStorage(false); // Aucune donnée dans le localStorage
-    }
 
     function refreshWorkspace(typeModif) {
       if (
@@ -71,73 +63,21 @@ const Index = () => {
     );
   };
 
-  /*function setCookie(cname, cvalue, exdays){
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  const checkStorage = () => {
+    if (localStorage.getItem("savedWorkspace")) {
+      setCssBtn(style.btn__tertiary); 
+    } else {
+      setCssBtn(style.btn__disabled);
+
+    }
   }
 
-  function getCookie(cname) {
-    let name = cname + "=";
-    let ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-};*/
-
-
-  /*const SaveWorkspace = () => {
-    if (workspaceRef.current) {
-      const blocklyJsonWorkspace = Blockly.serialization.workspaces.save(
-        workspaceRef.current
-      );
-      const blocklyStringWorkspace = JSON.stringify(blocklyJsonWorkspace);
-
-      try {
-        setCookie("savedWorkspace", blocklyStringWorkspace, 100);
-        setSavedWorkspace(blocklyJsonWorkspace);
-        setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
-      } catch (error) {
-        setSaveMessage("Erreur : La sauvegarde n'a pas été prise en compte, veuillez réessayer :'(");
-        console.log("Erreur : "+error);
-      }
-
-      setTimeout(() => {
-        setSaveMessage("");
-      }, 3000);
-    }
-  };
-
-  const LoadWorkspace = () => {
-    if (workspaceRef.current) {
-      const blocklyStringWorkspace = getCookie("savedWorkspace");
-      const blocklyJsonWorkspace = JSON.parse(blocklyStringWorkspace);
-      try {
-        Blockly.serialization.workspaces.load(
-          blocklyJsonWorkspace,
-          workspaceRef.current
-        );
-      } catch (error) {
-        console.log("Erreur : "+error)
-      }
-    }
-  };*/
-
-
-
   const SaveWorkspace = () => {
-    if (workspaceRef.current) {
+    if (workspaceRef.current && workspaceRef.current.getAllBlocks().length > 0) {
+      
       const workspaceJson = Blockly.serialization.workspaces.save(workspaceRef.current);
       const workspaceString = JSON.stringify(workspaceJson);
-
+      
       try {
         localStorage.setItem('savedWorkspace', workspaceString);
         setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
@@ -146,6 +86,8 @@ const Index = () => {
         console.log("Erreur lors de la sauvegarde : ", error);
         setSaveMessage("Erreur lors de la sauvegarde ='(");
       }
+      checkStorage();
+    
       setTimeout(() => {
         setSaveMessage("");
       }, 3000);
@@ -190,6 +132,8 @@ const Index = () => {
    }else{
     setSaveMessage("La suppression de la sauvegarde à été annulé");
    }
+   checkStorage();
+
    setTimeout(() => {
     setSaveMessage("");
   }, 3000);
@@ -219,7 +163,7 @@ const Index = () => {
           </button>
 
           <button
-            className={`${style.btn} ${checkDataLocalStorage ? style.btn__tertiary : style.btn__disabled}`}
+            className={`${style.btn} ${cssBtn}`}
             onClick={eraseDataLocalStorage}>
             Erase
           </button>

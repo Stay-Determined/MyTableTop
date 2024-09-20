@@ -2,46 +2,12 @@ import * as Blockly from "blockly";
 
 Blockly.defineBlocksWithJsonArray([
   {
-    type: "react_button",
-    message0: "<Button> %1",
-    args0: [
-      {
-        type: "field_input",
-        name: "BUTTON_TEXT",
-        text: "Clique",
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: "#3765c3",
-    tooltip: "Creates a React button component",
-    helpUrl: "",
-  },
-  {
-    type: "react_text",
-    message0: "<p> %1",
-    args0: [
-      {
-        type: "field_input",
-        name: "TEXT_TEXT",
-        text: "Texte",
-      },
-    ],
-    previousStatement: null,
-    nextStatement: null,
-    colour: "#00B6DA",
-    tooltip: "Creates a React button component",
-    helpUrl: "",
-  },
-
-  {
     type: "react_cardlist",
-    message0: " %1 de %2",
+    message0: "%1 de %2",
     args0: [
       {
         type: "field_dropdown",
         name: "CARD_TEXT",
-        text: "Numero",
         options: [
           ["As", "AS"],
           ["Deux", "DEUX"],
@@ -61,22 +27,21 @@ Blockly.defineBlocksWithJsonArray([
       {
         type: "field_dropdown",
         name: "FAMILLY_TEXT",
-        text: "Type",
         options: [
           ["Pique", "PIQUE"],
           ["Coeur", "COEUR"],
           ["Carreau", "CARREAU"],
-          ["Trefle", "TREFLE"],
+          ["Trèfle", "TREFLE"],
         ],
       },
     ],
-    colour: "cdb4db",
+    colour: "#9966FF",
     previousStatement: null,
     nextStatement: null,
   },
   {
     type: "react_deck",
-    message0: " %1",
+    message0: "Deck %1",
     args0: [
       {
         type: "field_input",
@@ -84,8 +49,55 @@ Blockly.defineBlocksWithJsonArray([
         text: "Deck de cartes",
       },
     ],
-    colour: "cdb4db",
+    colour: "#9966FF",
     previousStatement: null,
     nextStatement: null,
+  },
+  {
+    type: "react_button",
+    message0: "Button %1",
+    args0: [
+      {
+        type: "field_input",
+        name: "BUTTON_TEXT",
+        text: "Clique",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: "#FFBF00",
+    tooltip: "button",
+    helpUrl: "",
+  },
+  {
+    type: "react_text",
+    message0: "Texte %1",
+    args0: [
+      {
+        type: "field_input",
+        name: "TEXT_TEXT",
+        text: "Texte",
+      },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: "#FFBF00",
+    tooltip: "text",
+    helpUrl: "",
+  },
+  {
+    type: "math_number",
+    message0: "Nombre %1",
+    args0: [
+      {
+        type: "field_number",
+        name: "NUMBER",
+        value: 0,
+      },
+    ],
+    output: "Number",
+    colour: "#59C059",
+    tooltip: "number",
+    helpUrl: "",
   },
 ]);

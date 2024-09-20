@@ -8,6 +8,7 @@ import Workspace from "./../../components/Workspace";
 
 import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
 import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
+import { toolbox } from "../../interpreter/blocks/toolbox";
 
 import style from "./index.module.css";
 
@@ -21,14 +22,7 @@ const Index = () => {
 
   useEffect(() => {
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
-      toolbox: `
-        <xml>
-          <block type="react_button"></block> <!-- Your custom block -->
-          <block type="react_text"></block> <!-- Your custom block -->
-          <block type="react_cardlist"></block> <!-- Your custom block -->
-          <block type="react_deck"></block> <!-- Your custom block -->
-        </xml>
-      `,
+      toolbox: toolbox,
       trashcan: true,
     });
     workspaceRef.current = workspaceBlock;
@@ -37,7 +31,8 @@ const Index = () => {
       if (
         typeModif.type === Blockly.Events.BLOCK_CREATE ||
         typeModif.type === Blockly.Events.BLOCK_DELETE ||
-        typeModif.type === Blockly.Events.BLOCK_CHANGE
+        typeModif.type === Blockly.Events.BLOCK_CHANGE ||
+        typeModif.type === Blockly.Events.BLOCK_MOVE
       ) {
         generateCode();
       }

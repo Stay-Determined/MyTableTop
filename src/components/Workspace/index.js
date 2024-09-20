@@ -33,6 +33,8 @@ const Workspace = ({ children }) => {
   useEffect(() => {
     let toDel = Array.from([])
     let toAdd = Array.from([])
+    console.log("global",global)
+    console.log("children",Array.from(children))
     for (let index = 0; index < global.length; index++) {
       const element = global[index];
       let finded = false
@@ -47,14 +49,14 @@ const Workspace = ({ children }) => {
         toDel = [...toDel,element]
       }
     }
+    console.log("toDel",toDel)
+
     for (let index = 0; index < Array.from(children).length; index++) {
       const child = Array.from(children)[index];
       console.log("child",child)
       let finded = false
       for (let index2 = 0; index2 < global.length; index2++) {
-        const element = Array.from(children)[index2];
-        
-
+        const element = global[index2];
         if ( child && element && child.key === element.key) {
           finded = true
         }
@@ -63,51 +65,70 @@ const Workspace = ({ children }) => {
         toAdd = [...toAdd,child]
       }
     }
-    console.log("toDel,toAdd",toDel,toAdd)
-
+    console.log("toAdd",toAdd)
+    
+    let newDrop1 = state.droppable1
+    let newDrop2 = state.droppable2
+    let newDrop3 = state.droppable3
+    let newDrop4 = state.droppable4
     for (let index = 0; index < toDel.length; index++) {
       const element = toDel[index];
       let finded = -1 
       for (let index2 = 0; index2 < state.droppable1.length; index2++) {
         const inState = state.droppable1[index2];
         if (inState.key === element.key ){
-          let finded = index2
-        }
+          finded = index2
+          console.log("deleted 1:", finded,inState)
+        } 
       }
-      
-      setState(prevState => ({ ...prevState, droppable1: state.droppable1.splice([finded],1) }));
+      if (finded != -1)
+        newDrop1.splice(finded,1);
       finded = -1 
       for (let index2 = 0; index2 < state.droppable2.length; index2++) {
         const inState = state.droppable2[index2];
         if (inState.key === element.key ){
-          let finded = index2
+          finded = index2
+          console.log("deleted 2:", finded,inState)
         }
       }
-      setState(prevState => ({ ...prevState, droppable2: state.droppable2.splice([finded],1) }));
+      if (finded != -1)
+        newDrop2.splice(finded,1);
       finded = -1 
       for (let index2 = 0; index2 < state.droppable3.length; index2++) {
         const inState = state.droppable3[index2];
         if (inState.key === element.key ){
-          let finded = index2
+          finded = index2
+          console.log("deleted 3:", finded,inState)
         }
       }
-      
-      setState(prevState => ({ ...prevState, droppable3: state.droppable3.splice([finded],1) }));
+      if (finded != -1)
+        newDrop3.splice(finded,1);
       finded = -1 
       for (let index2 = 0; index2 < state.droppable4.length; index2++) {
         const inState = state.droppable4[index2];
         if (inState.key === element.key ){
-          let finded = index2
+          finded = index2
+          console.log("deleted 4:", finded,inState)
         }
       }
-      setState(prevState => ({ ...prevState, droppable4: state.droppable4.splice([finded],1) }));
-      
+      if (finded != -1)
+        newDrop4.splice(finded,1); 
     }
-    const deposit = state.droppable1
-    setState(prevState => ({ ...prevState, droppable1: [...deposit, ...toAdd] }));
+    console.log("newDrop1 before add:", newDrop1)
+    newDrop1.push(...toAdd)
+    console.log("nd:",newDrop1,newDrop2,newDrop3,newDrop4)
+    setState(
+      {droppable1: newDrop1,
+      droppable2: newDrop2,
+      droppable3: newDrop3,
+      droppable4: newDrop4}
+    );
     
     setGlobal(Array.from(children))
-    console.log("inWorkspace", children);
+    console.log("inWorkspace", {droppable1: newDrop1,
+      droppable2: newDrop2,
+      droppable3: newDrop3,
+      droppable4: newDrop4});
   }, [children]);
 
   const onDragEnd = (result) => {

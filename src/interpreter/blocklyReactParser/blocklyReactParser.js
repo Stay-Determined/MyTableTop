@@ -12,8 +12,8 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
   var content = [];
   if (workspaceJson && workspaceJson.blocks && workspaceJson.blocks.blocks) {
     workspaceJson.blocks.blocks.forEach((block, index) => {
-      let parent = <Initializer  key={`bloc`+index}/>
-      console.log("parent.key",parent.key);
+      let parent = <Initializer  key={index+`bloc`}/>
+      // console.log("parent.key",parent.key);
       
       // let children = Initializer();
       // // debug(block,index)
@@ -35,13 +35,26 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
       // content = [...content,React.cloneElement(parent,children.props)];
 
       // console.log(blockParse(block,parent))
+      const final = [...blockParse(block, parent)];
+      // console.log("final",final);
+      let lastKey = "";
+      for (let finalTemp = final;finalTemp[0]; ) {
+        lastKey = lastKey + finalTemp[0].key;
+        if (finalTemp[1]){
+          finalTemp = finalTemp[1]
+        }else {
+          break
+        }
+        
+      }
+      // console.log("last key",lastKey);
       content = [
         ...content,
-        React.cloneElement(parent, {key:parent.key+`out`}, ...blockParse(block, parent)),
+        React.cloneElement(parent, {key:parent.key+lastKey}, ...blockParse(block, parent)),
       ];
     });
   }
-  console.log("content end", content);
+  // console.log("content end", content);
   return content;
   const newChildren = React.cloneElement(
     actualWorkspace.props.children,
@@ -59,26 +72,26 @@ function blockParse(block, parent) {
 
   let content = [];
   if (block.type === "react_button") {
-    console.log("button");
+    // console.log("button");
     // console.log(block.fields["BUTTON_TEXT"]);
     // ret = React.cloneElement(parent.props,null,<Button text={block.fields["BUTTON_TEXT"]} onClick={null} />)
-    content = [<Button text={block.fields["BUTTON_TEXT"]} onClick={null} key={parent.key+`in`}/>];
+    content = [<Button text={block.fields["BUTTON_TEXT"]} onClick={null} key={block.fields["BUTTON_TEXT"]}/>];
   }
   if (block.type === "react_text") {
-    console.log("text");
+    // console.log("text");
     // ret = React.cloneElement(parent.props,null,<Text text={block.fields["TEXT_TEXT"]} />)
-    content = [<Text text={block.fields["TEXT_TEXT"]} key={parent.key+`in`}/>];
+    content = [<Text text={block.fields["TEXT_TEXT"]} key={block.fields["TEXT_TEXT"]}/>];
   }
   if (block.type === "react_cardlist") {
     content = [
       <Card
         textNombre={block.fields["CARD_TEXT"]}
         textFamille={block.fields["FAMILLY_TEXT"]}
-        key={parent.key+`in`}
+        key={block.fields["CARD_TEXT"]+block.fields["FAMILLY_TEXT"]}
       />,
     ];
   }
-  console.log(parent);
+  // console.log("parent",parent);
   if (block.next) {
     content = [...content, blockParse(block.next.block, parent)];
   }

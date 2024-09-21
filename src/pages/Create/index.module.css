@@ -17,11 +17,6 @@
   width: 50%;
 }
 
-/* .blocklyMainBackground {
-  stroke-width: 0 !important;
-  stroke: none !important;
-} */
-
 .create__design {
   box-shadow: 0 4px 2px -2px var(--shadowBorder);
   border: 1.5px solid var(--shadowBorder);
@@ -75,8 +70,8 @@
   margin-left: 2%;
 }
 
-.btn__disabled{
-  border: 2px solid var(--disableColor) ;
+.btn__disabled {
+  border: 2px solid var(--disableColor);
   background-color: var(--whiteColor);
   color: var(--disableColor);
   border-radius: 5px;
@@ -86,4 +81,25 @@
 
 .btn__message {
   margin-left: 20px;
+}
+
+@media screen and (max-width: 1024px) {
+  .page__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+  }
+
+  .create__content,
+  .btn__container {
+    display: none;
+  }
+
+  .mobileMessage {
+    color: var(--primaryColor);
+    font-size: 1.2rem;
+    padding: 20px;
+  }
 }

@@ -9,3 +9,15 @@
   font-size: 16px;
   height: 4vh;
 }
+
+@media screen and (max-width: 600px) {
+  .footer {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .footer {
+    font-size: 12px;
+  }
+}

@@ -45,7 +45,6 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
         }else {
           break
         }
-        
       }
       // console.log("last key",lastKey);
       content = [
@@ -54,7 +53,7 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
       ];
     });
   }
-  console.log("content end", content);
+  // console.log("content end", content);
   return content;
   const newChildren = React.cloneElement(
     actualWorkspace.props.children,
@@ -122,11 +121,11 @@ function blockParse(block, parent) {
     if (block.inputs && block.inputs["DO"]){
       let temp = block.inputs["DO"].block;
       let index = 0
-      for (; temp.next;temp = temp.next.block ) {
+      for (; temp &&temp.next;temp = temp.next.block ) {
         index++
       }
       let divParent = <Initializer  key={`bloc`+index}/>
-      console.log("divParent",divParent)
+      // console.log("divParent",divParent)
       content = [ React.cloneElement(divParent,null,...blockParse(block.inputs["DO"].block,divParent))];
     }
   }

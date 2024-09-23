@@ -4,23 +4,6 @@ import { MdHeight } from "react-icons/md";
 import { v4 as uuidv4 } from 'uuid';
 import style from "./index.module.css";
 
-const grid = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-  background: isDragging ? "lightgreen" : "grey",
-  ...draggableStyle
-});
-
-// const getListStyle = isDraggingOver => ({
-//   background: isDraggingOver ? "lightblue" : "lightgrey",
-//   padding: grid,
-//   width: 100,
-//   minHeight: 100 // Added to ensure empty lists are still droppable
-// });
-
 const Workspace = ({ children }) => {
 
   const [global,setGlobal] = useState(Array.from(children))
@@ -40,8 +23,8 @@ const Workspace = ({ children }) => {
   useEffect(() => {
     let toDel = Array.from([])
     let toAdd = Array.from([])
-    console.log("global",global)
-    console.log("children",Array.from(children))
+    // console.log("global",global)
+    // console.log("children",Array.from(children))
     for (let index = 0; index < global.length; index++) {
       const element = global[index];
       let finded = false
@@ -56,11 +39,11 @@ const Workspace = ({ children }) => {
         toDel = [...toDel,element]
       }
     }
-    console.log("toDel",toDel)
+    // console.log("toDel",toDel)
 
     for (let index = 0; index < Array.from(children).length; index++) {
       const child = Array.from(children)[index];
-      console.log("child",child)
+      // console.log("child",child)
       let finded = false
       for (let index2 = 0; index2 < global.length; index2++) {
         const element = global[index2];
@@ -72,7 +55,7 @@ const Workspace = ({ children }) => {
         toAdd = [...toAdd,child]
       }
     }
-    console.log("toAdd",toAdd)
+    // console.log("toAdd",toAdd)
     
     let newDrop1 = state.droppable1
     let newDrop2 = state.droppable2
@@ -92,7 +75,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable1[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 1:", finded,inState)
+          // console.log("deleted 1:", finded,inState)
         } 
       }
       if (finded != -1)
@@ -102,7 +85,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable2[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 2:", finded,inState)
+          // console.log("deleted 2:", finded,inState)
         }
       }
       if (finded != -1)
@@ -112,7 +95,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable3[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 3:", finded,inState)
+          // console.log("deleted 3:", finded,inState)
         }
       }
       if (finded != -1)
@@ -122,7 +105,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable4[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 4:", finded,inState)
+          // console.log("deleted 4:", finded,inState)
         }
       }
       if (finded != -1)
@@ -133,7 +116,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable5[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 5:", finded,inState)
+          // console.log("deleted 5:", finded,inState)
         }
       }
       if (finded != -1)
@@ -144,7 +127,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable6[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 6:", finded,inState)
+          // console.log("deleted 6:", finded,inState)
         }
       }
       if (finded != -1)
@@ -155,7 +138,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable7[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 7:", finded,inState)
+          // console.log("deleted 7:", finded,inState)
         }
       }
       if (finded != -1)
@@ -166,7 +149,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable8[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 8:", finded,inState)
+          // console.log("deleted 8:", finded,inState)
         }
       }
       if (finded != -1)
@@ -177,7 +160,7 @@ const Workspace = ({ children }) => {
         const inState = state.droppable9[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 9:", finded,inState)
+          // console.log("deleted 9:", finded,inState)
         }
       }
       if (finded != -1)
@@ -188,15 +171,15 @@ const Workspace = ({ children }) => {
         const inState = state.droppable10[index2];
         if (inState.key === element.key ){
           finded = index2
-          console.log("deleted 10:", finded,inState)
+          // console.log("deleted 10:", finded,inState)
         }
       }
       if (finded != -1)
         newDrop10.splice(finded,1); 
     }
-    console.log("newDrop1 before add:", newDrop1)
+    // console.log("newDrop1 before add:", newDrop1)
     newDrop1.push(...toAdd)
-    console.log("nd:",newDrop1,newDrop2,newDrop3,newDrop4,newDrop5,newDrop6,newDrop7,newDrop8,newDrop9,newDrop10)
+    // console.log("nd:",newDrop1,newDrop2,newDrop3,newDrop4,newDrop5,newDrop6,newDrop7,newDrop8,newDrop9,newDrop10)
     setState(
       {droppable1: newDrop1,
       droppable2: newDrop2,
@@ -212,22 +195,22 @@ const Workspace = ({ children }) => {
     );
     
     setGlobal(Array.from(children))
-    console.log("inWorkspace",{droppable1: newDrop1,
-      droppable2: newDrop2,
-      droppable3: newDrop3,
-      droppable4: newDrop4,
-      droppable5: newDrop5,
-      droppable6: newDrop6,
-      droppable7: newDrop7,
-      droppable8: newDrop8,
-      droppable9: newDrop9,
-      droppable10: newDrop10,
-    });
+    // console.log("inWorkspace",{droppable1: newDrop1,
+    //   droppable2: newDrop2,
+    //   droppable3: newDrop3,
+    //   droppable4: newDrop4,
+    //   droppable5: newDrop5,
+    //   droppable6: newDrop6,
+    //   droppable7: newDrop7,
+    //   droppable8: newDrop8,
+    //   droppable9: newDrop9,
+    //   droppable10: newDrop10,
+    // });
   }, [children]);
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
-
+    
     // Dropped outside the list
     if (!destination) {
       return;
@@ -251,7 +234,6 @@ const Workspace = ({ children }) => {
         source,
         destination
       );
-
       setState(prevState => ({
         ...prevState,
         [source.droppableId]: result[source.droppableId],
@@ -277,7 +259,7 @@ const Workspace = ({ children }) => {
     const result = {};
     result[droppableSource.droppableId] = sourceClone;
     result[droppableDestination.droppableId] = destClone;
-
+    console.log(result);
     return result;
   };
 

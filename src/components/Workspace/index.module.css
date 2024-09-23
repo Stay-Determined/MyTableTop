@@ -2,7 +2,7 @@
   display: grid;
   align-items: center;
   justify-content: center;
-  grid: auto-flow / repeat(10,9%);
+  grid: auto-flow / repeat(10,10.25%);
   padding: 1.5%;
 }
 

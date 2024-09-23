@@ -122,11 +122,22 @@ function blockParse(block, parent) {
       let temp = block.inputs["DO"].block;
       let index = 0
       for (; temp &&temp.next;temp = temp.next.block ) {
+
         index++
       }
       let divParent = <Initializer  key={`bloc`+index}/>
       // console.log("divParent",divParent)
-      content = [ React.cloneElement(divParent,null,...blockParse(block.inputs["DO"].block,divParent))];
+      const newChildren = [...blockParse(block.inputs["DO"].block,divParent)];
+      let lastKey = "";
+      for (let finalTemp = newChildren;finalTemp[0]; ) {
+        lastKey = lastKey + finalTemp[0].key;
+        if (finalTemp[1]){
+          finalTemp = finalTemp[1]
+        }else {
+          break
+        }
+      }
+      content = [ React.cloneElement(divParent, {key:divParent.key+lastKey},newChildren)];
     }
   }
   if (block.type === "return_card") {

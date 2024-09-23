@@ -95,7 +95,7 @@ function blockParse(block, parent) {
 
   if (block.type === "react_deck") {
     content = [
-      <Deck text={block.fields["DECK_TEXT"]}/>,
+      <Deck text={block.fields["DECK_TEXT"]} key={block.fields["DECK_TEXT"]}/>,
     ];
   }
   console.log(parent);

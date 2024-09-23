@@ -14,12 +14,12 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle
 });
 
-const getListStyle = isDraggingOver => ({
-  background: isDraggingOver ? "lightblue" : "lightgrey",
-  padding: grid,
-  width: 250,
-  minHeight: 500 // Added to ensure empty lists are still droppable
-});
+// const getListStyle = isDraggingOver => ({
+//   background: isDraggingOver ? "lightblue" : "lightgrey",
+//   padding: grid,
+//   width: 100,
+//   minHeight: 100 // Added to ensure empty lists are still droppable
+// });
 
 const Workspace = ({ children }) => {
 
@@ -28,7 +28,13 @@ const Workspace = ({ children }) => {
     droppable1: Array.from(children),
     droppable2: [],
     droppable3: [],
-    droppable4: []
+    droppable4: [],
+    droppable5: [],
+    droppable6: [],
+    droppable7: [],
+    droppable8: [],
+    droppable9: [],
+    droppable10: [],
   });
 
   useEffect(() => {
@@ -72,6 +78,13 @@ const Workspace = ({ children }) => {
     let newDrop2 = state.droppable2
     let newDrop3 = state.droppable3
     let newDrop4 = state.droppable4
+    let newDrop5 = state.droppable5
+    let newDrop6 = state.droppable6
+    let newDrop7 = state.droppable7
+    let newDrop8 = state.droppable8
+    let newDrop9 = state.droppable9
+    let newDrop10 = state.droppable10
+
     for (let index = 0; index < toDel.length; index++) {
       const element = toDel[index];
       let finded = -1 
@@ -114,22 +127,102 @@ const Workspace = ({ children }) => {
       }
       if (finded != -1)
         newDrop4.splice(finded,1); 
+
+      finded = -1 
+      for (let index2 = 0; index2 < state.droppable5.length; index2++) {
+        const inState = state.droppable5[index2];
+        if (inState.key === element.key ){
+          finded = index2
+          console.log("deleted 5:", finded,inState)
+        }
+      }
+      if (finded != -1)
+        newDrop5.splice(finded,1); 
+
+      finded = -1 
+      for (let index2 = 0; index2 < state.droppable6.length; index2++) {
+        const inState = state.droppable6[index2];
+        if (inState.key === element.key ){
+          finded = index2
+          console.log("deleted 6:", finded,inState)
+        }
+      }
+      if (finded != -1)
+        newDrop6.splice(finded,1); 
+
+      finded = -1 
+      for (let index2 = 0; index2 < state.droppable7.length; index2++) {
+        const inState = state.droppable7[index2];
+        if (inState.key === element.key ){
+          finded = index2
+          console.log("deleted 7:", finded,inState)
+        }
+      }
+      if (finded != -1)
+        newDrop7.splice(finded,1); 
+
+      finded = -1 
+      for (let index2 = 0; index2 < state.droppable8.length; index2++) {
+        const inState = state.droppable8[index2];
+        if (inState.key === element.key ){
+          finded = index2
+          console.log("deleted 8:", finded,inState)
+        }
+      }
+      if (finded != -1)
+        newDrop8.splice(finded,1); 
+
+      finded = -1 
+      for (let index2 = 0; index2 < state.droppable9.length; index2++) {
+        const inState = state.droppable9[index2];
+        if (inState.key === element.key ){
+          finded = index2
+          console.log("deleted 9:", finded,inState)
+        }
+      }
+      if (finded != -1)
+        newDrop9.splice(finded,1); 
+
+      finded = -1 
+      for (let index2 = 0; index2 < state.droppable10.length; index2++) {
+        const inState = state.droppable10[index2];
+        if (inState.key === element.key ){
+          finded = index2
+          console.log("deleted 10:", finded,inState)
+        }
+      }
+      if (finded != -1)
+        newDrop10.splice(finded,1); 
     }
     console.log("newDrop1 before add:", newDrop1)
     newDrop1.push(...toAdd)
-    console.log("nd:",newDrop1,newDrop2,newDrop3,newDrop4)
+    console.log("nd:",newDrop1,newDrop2,newDrop3,newDrop4,newDrop5,newDrop6,newDrop7,newDrop8,newDrop9,newDrop10)
     setState(
       {droppable1: newDrop1,
       droppable2: newDrop2,
       droppable3: newDrop3,
-      droppable4: newDrop4}
+      droppable4: newDrop4,
+      droppable5: newDrop5,
+      droppable6: newDrop6,
+      droppable7: newDrop7,
+      droppable8: newDrop8,
+      droppable9: newDrop9,
+      droppable10: newDrop10,
+    }
     );
     
     setGlobal(Array.from(children))
-    console.log("inWorkspace", {droppable1: newDrop1,
+    console.log("inWorkspace",{droppable1: newDrop1,
       droppable2: newDrop2,
       droppable3: newDrop3,
-      droppable4: newDrop4});
+      droppable4: newDrop4,
+      droppable5: newDrop5,
+      droppable6: newDrop6,
+      droppable7: newDrop7,
+      droppable8: newDrop8,
+      droppable9: newDrop9,
+      droppable10: newDrop10,
+    });
   }, [children]);
 
   const onDragEnd = (result) => {
@@ -190,14 +283,14 @@ const Workspace = ({ children }) => {
 
   return (
     <div className={style.workspace__page}>
-      <DragDropContext onDragEnd={onDragEnd}>
+      <DragDropContext onDragEnd={onDragEnd} >
         {Object.keys(state).map((droppableId) => (
           <Droppable key={droppableId} droppableId={droppableId}>
             {(provided, snapshot) => (
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
+                className={style.droppable__div}
               >
                 {state[droppableId].map((item, index) => (
                   <Draggable
@@ -210,10 +303,11 @@ const Workspace = ({ children }) => {
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
+                        className={style.draggable__div}
+                        // style={getItemStyle(
+                        //   snapshot.isDragging,
+                        //   provided.draggableProps.style
+                        // )}
                       >
                         {item}
                       </div>

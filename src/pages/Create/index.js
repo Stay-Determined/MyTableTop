@@ -15,13 +15,13 @@ import style from "./index.module.css";
 const Index = () => {
   const blocklyDiv = useRef(null);
   const workspaceRef = useRef(null);
-  const [workspaceContent, setWorkspaceContent] = useState(Workspace);
+  const [workspaceContent, setWorkspaceContent] = useState([]);
 
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1024);
+      setIsMobile(window.innerWidth < 1565);
     };
 
     window.addEventListener("resize", handleResize);
@@ -46,10 +46,9 @@ const Index = () => {
 
     function refreshWorkspace(typeModif) {
       if (
-        typeModif.type === Blockly.Events.BLOCK_CREATE ||
-        typeModif.type === Blockly.Events.BLOCK_DELETE ||
-        typeModif.type === Blockly.Events.BLOCK_CHANGE ||
-        typeModif.type === Blockly.Events.BLOCK_MOVE
+        typeModif?.type === Blockly.Events.BLOCK_MOVE ||
+        typeModif?.type === Blockly.Events.BLOCK_DELETE ||
+        typeModif?.type === Blockly.Events.BLOCK_CHANGE
       ) {
         generateCode();
       }
@@ -166,7 +165,7 @@ const Index = () => {
           <>
             <div className={style.create__content}>
               <div ref={blocklyDiv} className={style.blockly__bloc}></div>
-              <div className={style.create__design}>{workspaceContent}</div>
+              <div className={style.create__design}><Workspace children={workspaceContent}/></div>
             </div>
 
             <div className={style.btn__container}>

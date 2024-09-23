@@ -100,6 +100,7 @@ const Deck = () => {
         default:
           image = "none";
           break;
+        
   };
   
   setCarte(image);
@@ -113,7 +114,7 @@ const Deck = () => {
      {listeCarte.length > 0 &&
      (<div>
           <img src={shuffle} alt="shuffle" style={{ margin: "auto", cursor : "pointer" }} onClick={melangerDeck} />
-          <img src={deck} alt="card"/>
+          {/* <img src={deck} alt="card"/> */}
           <img src={draw} alt="draw" style={{ margin: "auto", cursor : "pointer" }} onClick={pioche} />
       </div>)}
     

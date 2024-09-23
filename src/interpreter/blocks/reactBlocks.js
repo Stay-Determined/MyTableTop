@@ -100,4 +100,27 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: "number",
     helpUrl: "",
   },
+  {
+    type: "react_div",
+    message0: "<div>%1",
+    args0: [
+      {
+        type: "input_value",
+        name: "STYLE"
+      }
+    ],
+    message1: "%1",
+    args1: [
+      {
+        "type": "input_statement",
+        "name": "DO",
+        
+      }
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: 100,
+    tooltip: "Creates a React button component",
+    helpUrl: ""
+  },
 ]);

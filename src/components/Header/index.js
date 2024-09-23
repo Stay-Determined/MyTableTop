@@ -13,7 +13,7 @@ const Header = () => {
             <li>MyTableTop</li>
           </Link>
           <Link to="/">
-            <li>Acceuil</li>
+            <li>Accueil</li>
           </Link>
           <Link to="/projects/editor">
             <li>Créer</li>

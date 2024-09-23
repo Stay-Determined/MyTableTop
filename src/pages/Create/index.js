@@ -8,6 +8,7 @@ import Workspace from "./../../components/Workspace";
 
 import { blocklyReactParser } from "../../interpreter/blocklyReactParser/blocklyReactParser";
 import { reactBlocksGenerator } from "../../interpreter/blocks/reactBlocks";
+import { toolbox } from "../../interpreter/blocks/toolbox";
 
 import style from "./index.module.css";
 
@@ -16,19 +17,29 @@ const Index = () => {
   const workspaceRef = useRef(null);
   const [workspaceContent, setWorkspaceContent] = useState([]);
 
-  const [savedWorkspace, setSavedWorkspace] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const [cssBtn, setCssBtn] = useState(
+    localStorage.getItem("savedWorkspace")
+      ? style.btn__tertiary
+      : style.btn__disabled
+  );
   const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
     const workspaceBlock = Blockly.inject(blocklyDiv.current, {
-      toolbox: `
-        <xml>
-          <block type="react_button"></block> <!-- Your custom block -->
-          <block type="react_text"></block> <!-- Your custom block -->
-          <block type="react_cardlist"></block> <!-- Your custom block -->
-          <block type="react_deck"></block> <!-- Your custom block -->
-        </xml>
-      `,
+      toolbox: toolbox,
       trashcan: true,
     });
     workspaceRef.current = workspaceBlock;
@@ -42,6 +53,7 @@ const Index = () => {
         generateCode();
       }
     }
+
     workspaceRef.current.addChangeListener(refreshWorkspace);
 
     return () => {
@@ -61,14 +73,34 @@ const Index = () => {
     );
   };
 
+  const checkStorage = () => {
+    if (localStorage.getItem("savedWorkspace")) {
+      setCssBtn(style.btn__tertiary);
+    } else {
+      setCssBtn(style.btn__disabled);
+    }
+  };
+
   const SaveWorkspace = () => {
-    if (workspaceRef.current) {
-      const workspaceJSON = Blockly.serialization.workspaces.save(
+    if (
+      workspaceRef.current &&
+      workspaceRef.current.getAllBlocks().length > 0
+    ) {
+      const workspaceJson = Blockly.serialization.workspaces.save(
         workspaceRef.current
       );
-      setSavedWorkspace(workspaceJSON);
+      const workspaceString = JSON.stringify(workspaceJson);
 
-      setSaveMessage("La sauvegarde a bien été prise en compte ! Have fun =)");
+      try {
+        localStorage.setItem("savedWorkspace", workspaceString);
+        setSaveMessage(
+          "La sauvegarde a bien été prise en compte ! Have fun =)"
+        );
+      } catch (error) {
+        console.log("Erreur lors de la sauvegarde : ", error);
+        setSaveMessage("Erreur lors de la sauvegarde ='(");
+      }
+      checkStorage();
 
       setTimeout(() => {
         setSaveMessage("");
@@ -77,42 +109,93 @@ const Index = () => {
   };
 
   const LoadWorkspace = () => {
-    if (workspaceRef.current && savedWorkspace) {
-      Blockly.serialization.workspaces.load(
-        savedWorkspace,
-        workspaceRef.current
-      );
+    if (workspaceRef.current) {
+      const savedWorkspace = localStorage.getItem("savedWorkspace");
+
+      try {
+        Blockly.serialization.workspaces.load(
+          JSON.parse(savedWorkspace),
+          workspaceRef.current
+        );
+        setSaveMessage("Chargement de la sauvegarde réussi =)");
+      } catch (error) {
+        console.log("Erreur lors du chargement : ", error);
+        setSaveMessage("Le chargement de la sauvegarde à échoué ='(");
+      }
+      setTimeout(() => {
+        setSaveMessage("");
+      }, 3000);
     }
+  };
+
+  const eraseDataLocalStorage = () => {
+    var msg =
+      "Vous êtes sur le points de supprimer votre sauvegarde. \
+      \n\nÊtes vous sûr de continuer ? \
+      \n\nCette action est irréversible O_O'";
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm(msg)) {
+      //eslint-disable-line
+      try {
+        localStorage.clear();
+        setSaveMessage("Sauvegarde supprimé avec succès");
+      } catch (error) {
+        console.log("Erreur : " + error);
+        setSaveMessage("La suppression de la sauvegarde à échoué");
+      }
+    } else {
+      setSaveMessage("La suppression de la sauvegarde à été annulé");
+    }
+    checkStorage();
+
+    setTimeout(() => {
+      setSaveMessage("");
+    }, 3000);
   };
 
   return (
     <div className={style.create__page}>
       <Header />
       <div className={style.page__content}>
-        <div className={style.create__content}>
-          <div ref={blocklyDiv} className={style.blockly__bloc}></div>
-          <div className={style.create__design}><Workspace children={workspaceContent}/></div>
-        </div>
+        {isMobile ? (
+          <div className={style.mobileMessage}>
+            Utilise un écran plus large pour voir ce contenu !
+          </div>
+        ) : (
+          <>
+            <div className={style.create__content}>
+              <div ref={blocklyDiv} className={style.blockly__bloc}></div>
+              <div className={style.create__design}><Workspace children={workspaceContent}/></div>
+            </div>
 
-        <div className={style.btn__container}>
-          <button
-            className={`${style.btn} ${style.btn__primary}`}
-            onClick={SaveWorkspace}
-          >
-            Save
-          </button>
+            <div className={style.btn__container}>
+              <button
+                className={`${style.btn} ${style.btn__primary}`}
+                onClick={SaveWorkspace}
+              >
+                Save
+              </button>
 
-          <button
-            className={`${style.btn} ${style.btn__secondary}`}
-            onClick={LoadWorkspace}
-          >
-            Load
-          </button>
+              <button
+                className={`${style.btn} ${style.btn__secondary}`}
+                onClick={LoadWorkspace}
+              >
+                Load
+              </button>
 
-          {saveMessage && (
-            <div className={style.btn__message}>{saveMessage}</div>
-          )}
-        </div>
+              <button
+                className={`${style.btn} ${cssBtn}`}
+                onClick={eraseDataLocalStorage}
+              >
+                Erase
+              </button>
+
+              {saveMessage && (
+                <div className={style.btn__message}>{saveMessage}</div>
+              )}
+            </div>
+          </>
+        )}
       </div>
       <Footer />
     </div>

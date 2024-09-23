@@ -1,14 +1,13 @@
 import React from "react";
-import Workspace from "../../components/Workspace";
+
 import Button from "../../components/createdComponents/Button";
-import Text from "../../components/createdComponents/Text";
 import Card from "../../components/createdComponents/Card";
-import Deck from "../../components/createdComponents/Deck"
+import Deck from "../../components/createdComponents/Deck";
+import Text from "../../components/createdComponents/Text";
+import Workspace from "../../components/Workspace";
 
 import Initializer from "./initializer";
 
-// ici y'auras tout le coeur du parser/interpreter, chaque block aura sont output précisé ici meme
-// atm y'a que button et text, mais c'est ici qu'il y auras div par exemple, image, ou autre
 export function blocklyReactParser(workspaceJson, actualWorkspace) {
   var content = [];
   if (workspaceJson && workspaceJson.blocks && workspaceJson.blocks.blocks) {
@@ -61,7 +60,6 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
     actualWorkspace.props.children,
     ...content
   );
-  console.log(newChildren);
   return React.cloneElement(actualWorkspace, newChildren.props);
 }
 
@@ -83,6 +81,7 @@ function blockParse(block, parent) {
     // ret = React.cloneElement(parent.props,null,<Text text={block.fields["TEXT_TEXT"]} />)
     content = [<Text text={block.fields["TEXT_TEXT"]} key={block.fields["TEXT_TEXT"]}/>];
   }
+
   if (block.type === "react_cardlist") {
     content = [
       <Card
@@ -92,13 +91,22 @@ function blockParse(block, parent) {
       />,
     ];
   }
-
   if (block.type === "react_deck") {
     content = [
       <Deck text={block.fields["DECK_TEXT"]} key={block.fields["DECK_TEXT"]}/>,
     ];
+    content = [<Deck text={block.fields["DECK_TEXT"]} />];
   }
-  console.log(parent);
+  if (block.type === "return_card") {
+    content = [];
+  }
+  if (block.type === "rotate_card") {
+    content = [];
+  }
+  if (block.type === "math_number") {
+    const numberValue = block.fields?.["NUMBER"];
+    content = [numberValue];
+  }
   if (block.next) {
     content = [...content, blockParse(block.next.block, parent)];
   }

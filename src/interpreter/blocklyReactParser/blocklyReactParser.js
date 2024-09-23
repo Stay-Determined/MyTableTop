@@ -54,7 +54,7 @@ export function blocklyReactParser(workspaceJson, actualWorkspace) {
       ];
     });
   }
-  // console.log("content end", content);
+  console.log("content end", content);
   return content;
   const newChildren = React.cloneElement(
     actualWorkspace.props.children,
@@ -81,7 +81,6 @@ function blockParse(block, parent) {
     // ret = React.cloneElement(parent.props,null,<Text text={block.fields["TEXT_TEXT"]} />)
     content = [<Text text={block.fields["TEXT_TEXT"]} key={block.fields["TEXT_TEXT"]}/>];
   }
-
   if (block.type === "react_cardlist") {
     content = [
       <Card
@@ -97,16 +96,50 @@ function blockParse(block, parent) {
     ];
     content = [<Deck text={block.fields["DECK_TEXT"]} />];
   }
+  if (block.type === "react_div"){
+    console.log("div");
+
+    
+
+    // if (block.inputs["STYLE"]){
+    //   console.log(block.inputs["STYLE"]);
+    //   if (block.inputs["STYLE"].block.type === "react_styles"){
+    //       console.log(block.inputs["STYLE"].block);
+    //       if (block.inputs["STYLE"].block.inputs["STYLE"] && block.inputs["STYLE"].block.inputs["STYLE"].block.fields["STYLE_KEY"]){
+    //         if (block.inputs["STYLE"].block.inputs["STYLE"].block.type === "react_style") {
+    //           if (block.inputs["STYLE"].block.inputs["STYLE"].block.inputs["STYLE_VALUE"]) {
+    //             if (block.inputs["STYLE"].block.inputs["STYLE"].block.inputs["STYLE_VALUE"].block.fields["TEXT"]) {
+    //               let key = block.inputs["STYLE"].block.inputs["STYLE"].block.fields["STYLE_KEY"];
+    //               let value = block.inputs["STYLE"].block.inputs["STYLE"].block.inputs["STYLE_VALUE"].block.fields["TEXT"]
+    //               console.log(key,value);
+    //               divParent = Initializer({key:value});
+    //             }
+    //           }
+    //         }
+    //       }
+    //   }
+    // }
+    if (block.inputs && block.inputs["DO"]){
+      let temp = block.inputs["DO"].block;
+      let index = 0
+      for (; temp.next;temp = temp.next.block ) {
+        index++
+      }
+      let divParent = <Initializer  key={`bloc`+index}/>
+      console.log("divParent",divParent)
+      content = [ React.cloneElement(divParent,null,...blockParse(block.inputs["DO"].block,divParent))];
+    }
+  }
   if (block.type === "return_card") {
     content = [];
   }
   if (block.type === "rotate_card") {
     content = [];
   }
-  if (block.type === "math_number") {
-    const numberValue = block.fields?.["NUMBER"];
-    content = [numberValue];
-  }
+  // if (block.type === "math_number") {
+  //   const numberValue = block.fields?.["NUMBER"];
+  //   content = [numberValue];
+  // }
   if (block.next) {
     content = [...content, blockParse(block.next.block, parent)];
   }

@@ -17,7 +17,7 @@ export const toolbox = {
     },
     {
       kind: "category",
-      name: "Evénements",
+      name: "Autre",
       contents: [
         {
           kind: "block",
@@ -27,27 +27,11 @@ export const toolbox = {
           kind: "block",
           type: "react_text",
         },
-      ],
-    },
-    {
-      kind: "category",
-      name: "Mouvements",
-      contents: [],
-    },
-    {
-      kind: "category",
-      name: "Opérateurs",
-      contents: [
         {
           kind: "block",
-          type: "math_number",
+          type: "react_div",
         },
       ],
-    },
-    {
-      kind: "category",
-      name: "Contrôle",
-      contents: [],
     },
   ],
 };

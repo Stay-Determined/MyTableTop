@@ -48,7 +48,8 @@ const Index = () => {
       if (
         typeModif?.type === Blockly.Events.BLOCK_MOVE ||
         typeModif?.type === Blockly.Events.BLOCK_DELETE ||
-        typeModif?.type === Blockly.Events.BLOCK_CHANGE
+        typeModif?.type === Blockly.Events.BLOCK_CHANGE ||
+        typeModif?.type === Blockly.Events.BLOCK_CREATE
       ) {
         generateCode();
       }
@@ -189,7 +190,8 @@ const Index = () => {
               >
                 Erase
               </button>
-
+            </div>
+            <div className={style.btn__container}>
               {saveMessage && (
                 <div className={style.btn__message}>{saveMessage}</div>
               )}

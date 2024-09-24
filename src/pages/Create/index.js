@@ -21,7 +21,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 1565);
+      setIsMobile(window.innerWidth < 1024);
     };
 
     window.addEventListener("resize", handleResize);
@@ -62,7 +62,7 @@ const Index = () => {
         workspaceRef.current.dispose();
       }
     };
-  }, []);
+  }, [workspaceRef]);
 
   const generateCode = () => {
     setWorkspaceContent(

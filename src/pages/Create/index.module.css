@@ -83,7 +83,7 @@
   margin-left: 20px;
 }
 
-@media screen and (max-width: 1565px) {
+@media screen and (max-width: 1024px) {
   .page__content {
     display: flex;
     justify-content: center;
